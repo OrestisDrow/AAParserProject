@@ -1,4 +1,5 @@
 import re
+
 class TaskExecutionSummary:
     def __init__(self, lines):
         self._data = self._parse(lines)

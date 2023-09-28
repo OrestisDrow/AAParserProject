@@ -1,1 +1,0 @@
-{'Compile Query': '7.43', 'Prepare Plan': '8.69', 'Get Query Coordinator (AM)': '0.00', 'Submit Plan': '0.48', 'Start DAG': '1.45'}

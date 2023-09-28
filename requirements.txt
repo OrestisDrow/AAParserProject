@@ -1,0 +1,2 @@
+# All dependencies are python standard library
+pytest

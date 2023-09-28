@@ -1,10 +1,8 @@
-from DetailedMetrics import DetailedMetrics
-from QuerySummary import QuerySummary 
-from TaskExecutionSummary import TaskExecutionSummary
 import warnings
 import os 
-
-from pprint import pprint
+from .detailed_metrics import DetailedMetrics
+from .query_summary import QuerySummary 
+from .task_execution_summary import TaskExecutionSummary
 
 class LogFileParser:
     
@@ -153,9 +151,3 @@ class LogFileParser:
         # Remove parser_error_logs.txt
         if os.path.exists('./ParserLogs/parser_error_logs.txt'):
             os.remove('./ParserLogs/parser_error_logs.txt')
-
-if __name__ == "__main__":
-    parser = LogFileParser("LogTest.txt")
-    parser.parse()
-    parser.save()
-    #parser.delete()
