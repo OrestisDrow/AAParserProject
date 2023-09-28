@@ -2,8 +2,10 @@ import os
 from logparser.log_file_parser import LogFileParser
 
 def main():
-    # Assume the log file is in the root directory of your package
-    log_file_path = os.path.join(os.path.dirname(__file__), "logfile.txt")
+    # Assume the log file is in the root directory of your package with the name logfile.txt
+    log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "logfile.txt")
+    log_file_path = os.path.normpath(log_file_path)  # Normalize the path to resolve any '..' segments
+
 
     parser = LogFileParser(log_file_path)
 
