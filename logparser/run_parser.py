@@ -1,9 +1,10 @@
 import os
+from pkg_resources import resource_filename
 from logparser.log_file_parser import LogFileParser
 
 def main():
-    # Now the logfile.txt is located in the same directory as run_parser.py
-    log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logfile.txt")
+    # The logfile.txt is located in the same directory as run_parser.py
+    log_file_path = resource_filename('logparser', 'logfile.txt')
 
     parser = LogFileParser(log_file_path)
 

@@ -1,4 +1,4 @@
 include README.md
 recursive-include tests/test_data *  # Include all files under tests/test_data
-include logfile.txt
+include logparser/logfile.txt
 include logparser/run_parser.py
