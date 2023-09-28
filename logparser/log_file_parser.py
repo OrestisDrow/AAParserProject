@@ -7,6 +7,12 @@ from .task_execution_summary import TaskExecutionSummary
 class LogFileParser:
     
     def __init__(self, log_file_path):
+        self.query_summary = None
+        self.query_errors = None
+        self.task_summary = None
+        self.task_errors = None
+        self.detailed_summary = None
+        self.detailed_errors = None
         self._header_idxs = {
             "INFO  : Query Execution Summary": None,
             "INFO  : Task Execution Summary": None,
@@ -51,7 +57,6 @@ class LogFileParser:
             if start_idx is None:
                 return None
             
-            #print(start_idx)
             idx = start_idx
             while idx < len(self._lines) and finish_identifier not in self._lines[idx][1]:
                 idx += 1
@@ -73,26 +78,6 @@ class LogFileParser:
         self.query_summary, self.query_errors = QuerySummary(query_execution_lines).data if query_execution_lines else (None, None)
         self.task_summary, self.task_errors = TaskExecutionSummary(task_execution_lines).data if task_execution_lines else (None, None)
         self.detailed_summary, self.detailed_errors = DetailedMetrics(detailed_metrics_lines).data if detailed_metrics_lines else (None, None)        
-        
-        """
-        print("==============================================================================================================================")
-        print("Query Summary")
-        print("==============================================================================================================================")
-        pprint(self.query_summary)
-        pprint(self.query_errors)
-        print("==============================================================================================================================")
-        print("Task Summary")
-        print("==============================================================================================================================")
-        pprint(self.task_summary)
-        pprint(self.task_errors)
-        
-        print("==============================================================================================================================")
-        print("Detailed Summary")
-        print("==============================================================================================================================")
-        pprint(self.detailed_summary)
-        pprint(self.detailed_errors)        
-        print("==============================================================================================================================")
-        """
 
     def save(self):
         # Ensure directories exist

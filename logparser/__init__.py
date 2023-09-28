@@ -10,8 +10,8 @@ Classes:
 - TaskExecutionSummary: Extracts summary and errors of task execution in the logs.
 - DetailedMetrics: Extracts detailed metrics and errors from the logs.
 """
-from query_summary import QuerySummary
-from task_execution_summary import TaskExecutionSummary
-from detailed_metrics import DetailedMetrics
-from log_file_parser import LogFileParser
+from logparser.query_summary import QuerySummary
+from logparser.task_execution_summary import TaskExecutionSummary
+from logparser.detailed_metrics import DetailedMetrics
+from logparser.log_file_parser import LogFileParser
 

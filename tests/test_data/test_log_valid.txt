@@ -1,0 +1,78 @@
+asdsf
+asdfasdf
+asdfasadf
+fdsf
+ghh:Lk;lk53875980712398
+12389idfkjhcklgu45
+
+INFO  : Query Execution Summary
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  : OPERATION                            DURATION
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  : Compile Query                           7.43s
+INFO  : Prepare Plan                            8.69s
+INFO  : Get Query Coordinator (AM)              0.00s
+INFO  : Submit Plan                             0.48s
+INFO  : Start DAG                               1.45s
+INFO  : Run DAG                                80.54s
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  : 
+INFO  : Task Execution Summary
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  :   VERTICES      DURATION(ms)   CPU_TIME(ms)    GC_TIME(ms)   INPUT_RECORDS   OUTPUT_RECORDS
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  :      Map 1          65013.00        516,890          7,624      13,119,189            1,200
+INFO  :      Map 3           6061.00         66,320          1,237           2,058               31
+INFO  :      Map 4           7088.00         50,530          1,117             431              431
+INFO  :  Reducer 2          40112.00        110,070          1,460           1,200                0
+INFO  :  Reducer 34          40112.00        110,070          1,460           1,200                0
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  : 
+asdfasdf
+asdf
+asdf
+INFO  : org.apache.tez.common.counters.DAGCounter:
+INFO  :    NUM_SUCCEEDED_TASKS: 58
+INFO  :    TOTAL_LAUNCHED_TASKS: 58
+INFO  :    DATA_LOCAL_TASKS: 26
+INFO  :    RACK_LOCAL_TASKS: 6
+INFO  :    AM_CPU_MILLISECONDS: 43650
+INFO  :    AM_GC_TIME_MILLIS: 422
+INFO  : File System Counters:
+INFO  :    FILE_BYTES_READ: 954341
+INFO  :    FILE_BYTES_WRITTEN: 207491
+INFO  :    HDFS_BYTES_READ: 225077992
+INFO  :    HDFS_BYTES_WRITTEN: 120034
+INFO  :    HDFS_READ_OPS: 44090
+INFO  :    HDFS_WRITE_OPS: 52
+INFO  :    HDFS_OP_CREATE: 26
+INFO  :    HDFS_OP_GET_FILE_STATUS: 78
+INFO  :    HDFS_OP_OPEN: 44012
+INFO  :    HDFS_OP_RENAME: 26
+INFO  : File System Whatever:
+INFO  :    ORESTIS_CUSTOM_CORRECT_METRIC: 26
+INFO  : Completed executing command(queryId=hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce); Time taken: 90.239 seconds
+INFO  : OK
+
+
+asdfasadfsadff
+
+fdsfafa
+sdfa
+sdfasadf
+asdfasadfsadffasd
+fdsfafadfsa
+df
+asdfasadfsadfff
+fdsf
+hg
+hg 
+hghgh
+ fgh
+ dfg   
+
+
+
+ gfdhfdgh
+ h 
+ hg

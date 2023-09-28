@@ -23,8 +23,8 @@ class TaskExecutionSummary:
         pattern = re.compile(r"^INFO\s{2}:\s+([a-zA-Z]+)\s(\d+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)")
 
         for idx, line in lines:
-            # Replace commas with whitespaces
-            line = line.replace(",", " ")
+            # Remove commas from the line
+            line = line.replace(",", "")
 
             match = pattern.search(line)
             if match:
