@@ -10,9 +10,10 @@ setup(
     ],
     entry_points={
     'console_scripts': [
-        'run-logparser=logparser.run_parser:main',
+        'run-logparser=run_parser:main',
         ],
     },
+
     author="Orestis Nikolas",
     author_email="OrestisDrow@gmail.com",
     description="A specialized log parser for extracting specific metrics.",
