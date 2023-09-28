@@ -1,0 +1,2 @@
+include README.md
+recursive-include tests/test_data *  # Include all files under tests/test_data
