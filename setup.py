@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
     'console_scripts': [
-        'run-logparser=run_parser:main',
+        'run-logparser=logparser.run_parser:main',
         ],
     },
 
