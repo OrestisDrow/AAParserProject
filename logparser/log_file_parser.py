@@ -106,7 +106,7 @@ class LogFileParser:
             f.write(str(self.detailed_summary))
         
         # Write the errors
-        with open('./ParserLogs/parser_error_logs.txt', 'w') as f:
+        with open('./RunResults/ParserLogs/parser_error_logs.txt', 'w') as f:
             f.write("===============================\n")
             f.write("Query Summary Errors:\n")
             f.write("===============================\n")
