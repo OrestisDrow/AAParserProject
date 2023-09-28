@@ -81,28 +81,28 @@ class LogFileParser:
 
     def save(self):
         # Ensure directories exist
-        if not os.path.exists('./Summaries/'):
-            os.makedirs('./Summaries/')
-        if not os.path.exists('./ParserLogs/'):
-            os.makedirs('./ParserLogs/')
+        if not os.path.exists('./RunResults/Summaries/'):
+            os.makedirs('./RunResults/Summaries/')
+        if not os.path.exists('./RunResults/ParserLogs/'):
+            os.makedirs('./RunResults/ParserLogs/')
         
         # Remove existing summaries
         summaries = ['query_summary.txt', 'task_summary.txt', 'detailed_summary.txt']
         for summary_file in summaries:
-            summary_path = os.path.join('./Summaries/', summary_file)
+            summary_path = os.path.join('./RunResults/Summaries/', summary_file)
             if os.path.exists(summary_path):
                 os.remove(summary_path)
         
         # Remove existing parser_error_logs.txt
-        if os.path.exists('./ParserLogs/parser_error_logs.txt'):
-            os.remove('./ParserLogs/parser_error_logs.txt')
+        if os.path.exists('./RunResults/ParserLogs/parser_error_logs.txt'):
+            os.remove('./RunResults/ParserLogs/parser_error_logs.txt')
         
         # Write the summaries
-        with open('./Summaries/query_summary.txt', 'w') as f:
+        with open('./RunResults/Summaries/query_summary.txt', 'w') as f:
             f.write(str(self.query_summary))
-        with open('./Summaries/task_summary.txt', 'w') as f:
+        with open('./RunResults/Summaries/task_summary.txt', 'w') as f:
             f.write(str(self.task_summary))
-        with open('./Summaries/detailed_summary.txt', 'w') as f:
+        with open('./RunResults/Summaries/detailed_summary.txt', 'w') as f:
             f.write(str(self.detailed_summary))
         
         # Write the errors
@@ -129,10 +129,10 @@ class LogFileParser:
         
         # Remove summary files
         for summary_file in summaries:
-            summary_path = os.path.join('./Summaries/', summary_file)
+            summary_path = os.path.join('./RunResults/Summaries/', summary_file)
             if os.path.exists(summary_path):
                 os.remove(summary_path)
         
         # Remove parser_error_logs.txt
-        if os.path.exists('./ParserLogs/parser_error_logs.txt'):
-            os.remove('./ParserLogs/parser_error_logs.txt')
+        if os.path.exists('./RunResults/ParserLogs/parser_error_logs.txt'):
+            os.remove('./RunResults/ParserLogs/parser_error_logs.txt')
