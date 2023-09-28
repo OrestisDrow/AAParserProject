@@ -13,7 +13,7 @@ def main():
 
     # Using the save() method to save results to a file
     # Saving to the current directory for simplicity
-    parser.save(".")
+    parser.save()
 
 if __name__ == "__main__":
     main()
