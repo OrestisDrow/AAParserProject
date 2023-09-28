@@ -9,7 +9,9 @@ setup(
         # Zero non-standard python library dependencies
     ],
     entry_points={
-        # No command-line executables
+    'console_scripts': [
+        'run-logparser=logparser.run_parser:main',
+        ],
     },
     author="Orestis Nikolas",
     author_email="OrestisDrow@gmail.com",
