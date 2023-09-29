@@ -89,3 +89,8 @@ You can run my tests by simply:
 ```bash
 pytest
 ```
+
+# Dig Deeper
+
+I have extremely detailed descriptions in every code file in the project in case someone wants
+to dig deeper into this project

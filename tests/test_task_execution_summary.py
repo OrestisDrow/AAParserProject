@@ -1,3 +1,34 @@
+"""
+Tests for the `TaskExecutionSummary` class from the `logparser` package.
+
+This test module focuses on ensuring that the `TaskExecutionSummary` class correctly
+parses provided log lines related to task execution into a structured format. 
+It aims to verify that durations, CPU times, GC times, input records, and output records are accurately captured. 
+Furthermore, the tests check if errors in the log lines, such as corrupt lines or incorrect formats, 
+are correctly identified and reported.
+
+Tests include:
+- `test_parse_correct_lines`: Validates that given structurally correct log lines, 
+  the parser can correctly parse them into the desired format without reporting any errors.
+  
+- `test_parse_incorrect_lines`: Checks the parser's ability to detect lines with 
+  corrupt structures or incorrect formats and subsequently report them.
+
+Usage:
+    This module can be run directly or imported as part of a larger test suite.
+
+Example:
+    $ pytest test_task_execution_summary.py
+
+Notes:
+    To enhance the tests, consider adding edge cases or variations in log structures 
+    to ensure the parser handles all possible scenarios comprehensively. These test scenarios that I have should
+    probably cover most "common" cases.
+
+    Even though the _parse method is private and testing private methods is an anti-pattern, in
+    our case it is important for Granularity, Isolation and Correctness purposes
+"""
+
 import re
 from logparser.task_execution_summary import TaskExecutionSummary
 

@@ -1,3 +1,34 @@
+"""
+Tests for the `QuerySummary` class from the `logparser` package.
+
+This test module focuses on verifying that the `QuerySummary` class correctly
+parses provided log lines into a structured format. It also ensures that errors
+in the log lines, such as missing critical operations or lines with corrupt structures, 
+are correctly identified and reported.
+
+Tests include:
+- `test_parse_correct_lines`: Verifies that given structurally correct log lines with all the 
+  expected operations, the parser can correctly parse them into the desired format without 
+  reporting any errors.
+  
+- `test_parse_incorrect_lines`: Validates the parser's ability to detect lines with corrupt structures,
+  report them, and also identify any missing critical operations from the logs.
+
+Usage:
+    This module can be run directly or imported as part of a larger test suite.
+
+Example:
+    $ pytest test_query_summary.py
+
+Notes:
+    To extend the tests, consider adding edge cases or variations in log structures to ensure
+    the parser handles all possible scenarios. These test scenarios that I have should
+    probably cover most "common" cases.
+
+    Even though the _parse method is private and testing private methods is an anti-pattern, in
+    our case it is important for Granularity, Isolation and Correctness purposes
+"""
+
 import re
 from logparser.query_summary import QuerySummary
 
