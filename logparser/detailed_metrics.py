@@ -9,6 +9,7 @@ class DetailedMetrics:
         return self._data
 
     def _parse(self, lines):
+        # Regexes to identify if a line is a header or a metric
         header_pattern = re.compile(r"^INFO\s{2}:\s([\w\s\.]+):$")
         metric_pattern = re.compile(r"^INFO\s{2}:\s{4}([\w_]+):\s(\d+.\d*|\d*)$")
 

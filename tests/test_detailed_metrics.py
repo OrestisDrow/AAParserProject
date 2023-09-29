@@ -2,7 +2,7 @@ import re
 from logparser.detailed_metrics import DetailedMetrics
 
 def test_parse_correct_lines():
-    # This test will check if the parse method can correctly parse valid log lines for detailed metrics
+    # This test will check if the parse method can correctly parse valid lines for detailed metrics
     sample_lines = [
         (0, "INFO  : org.apache.tez.common.counters.DAGCounter:"),
         (1, "INFO  :    NUM_SUCCEEDED_TASKS: 58"),

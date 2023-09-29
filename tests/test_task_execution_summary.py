@@ -3,7 +3,6 @@ from logparser.task_execution_summary import TaskExecutionSummary
 
 def test_parse_correct_lines():
     # This test will check if the parse method can correctly parse valid log lines for task execution summary
-    # 
     sample_lines = [
         (0, "INFO  :      Map 1          65013.00        516,890          7,624      13,119,189            1,200"),
         (1, "INFO  :  Reducer 34          40112.00        110,070          1,460           1,200                0"),

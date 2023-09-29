@@ -1,82 +1,6 @@
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/usr/hdp/3.1.0.0-78/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/usr/hdp/3.1.0.0-78/hadoop/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
-Connecting to jdbc:hive2://bispocm1.misc.t-mobile.pl:2181,bispocm2.misc.t-mobile.pl:2181,bispocm3.misc.t-mobile.pl:2181/default;principal=hive/_HOST@CORPO.T-MOBILE.PL;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2
-20/05/01 14:40:50 [main]: INFO jdbc.HiveConnection: Connected to bispocm4.misc.t-mobile.pl:10000
-Connected to: Apache Hive (version 3.1.0.3.1.0.0-78)
-Driver: Hive JDBC (version 3.1.0.3.1.0.0-78)
-Transaction isolation: TRANSACTION_REPEATABLE_READ
-0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> use tdatamodel_st;
-INFO  : Compiling command(queryId=hive_20200501144051_ae3af127-3448-4720-8fe9-02cc5b422aa8): use tdatamodel_st
-INFO  : Semantic Analysis Completed (retrial = false)
-INFO  : Returning Hive schema: Schema(fieldSchemas:null, properties:null)
-INFO  : Completed compiling command(queryId=hive_20200501144051_ae3af127-3448-4720-8fe9-02cc5b422aa8); Time taken: 0.044 seconds
-INFO  : Executing command(queryId=hive_20200501144051_ae3af127-3448-4720-8fe9-02cc5b422aa8): use tdatamodel_st
-INFO  : Starting task [Stage-0:DDL] in serial mode
-INFO  : Completed executing command(queryId=hive_20200501144051_ae3af127-3448-4720-8fe9-02cc5b422aa8); Time taken: 0.019 seconds
-INFO  : OK
-No rows affected (0.121 seconds)
-0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> 
-0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> SELECT t.CSPH_CONT_ID,
-. . . . . . . . . . . . . . . . . . . . . . .>   SERVICE_CODE, SERVICE_NAME, CSPH_VALID_FROM , CSPH_VALID_TO ,csph_buse_id, consent_value
-. . . . . . . . . . . . . . . . . . . . . . .> 
-. . . . . . . . . . . . . . . . . . . . . . .> FROM (
-. . . . . . . . . . . . . . . . . . . . . . .> SELECT /*+ MAPJOIN(BUSINESS_SERVICES) */ CSPH_CONT_ID,  b.BUSE_CODE AS SERVICE_CODE, 
-. . . . . . . . . . . . . . . . . . . . . . .>         b.BUSE_NAME AS SERVICE_NAME, 
-. . . . . . . . . . . . . . . . . . . . . . .>          CSPH_VALID_FROM, CSPH_VALID_TO , csph_buse_id, case when b.buse_code = 'EIHVER' then CSPH_NUMERIC_VAL 
-UE else CSPH_BSPV_ID end as consent_value 
-. . . . . . . . . . . . . . . . . . . . . . .> FROM CONTRACT_SERVICE_PARAM_HIST A
-. . . . . . . . . . . . . . . . . . . . . . .> inner join BUSINESS_SERVICES b on a.csph_buse_id = b.buse_id
-. . . . . . . . . . . . . . . . . . . . . . .> inner join BUSINESS_SERVICE_PARAM_VALUES bspv on a.csph_bspv_id = bspv.bspv_id
-. . . . . . . . . . . . . . . . . . . . . . .> WHERE b.buse_code LIKE 'EIH%'
-. . . . . . . . . . . . . . . . . . . . . . .> 
-. . . . . . . . . . . . . . . . . . . . . . .>         ) t
-. . . . . . . . . . . . . . . . . . . . . . .> GROUP BY CSPH_CONT_ID,SERVICE_CODE, SERVICE_NAME , CSPH_VALID_FROM, CSPH_VALID_TO, csph_buse_id, consent_value 
- 
-. . . . . . . . . . . . . . . . . . . . . . .> limit 100;
-INFO  : Compiling command(queryId=hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce): SELECT t.CSPH_CONT_ID,
-SERVICE_CODE, SERVICE_NAME, CSPH_VALID_FROM , CSPH_VALID_TO ,csph_buse_id, consent_value
-FROM (
-SELECT /*+ MAPJOIN(BUSINESS_SERVICES) */ CSPH_CONT_ID,  b.BUSE_CODE AS SERVICE_CODE,
-b.BUSE_NAME AS SERVICE_NAME,
-CSPH_VALID_FROM, CSPH_VALID_TO , csph_buse_id, case when b.buse_code = 'EIHVER' then CSPH_NUMERIC_VALUE else CSPH_BSPV_ID end as consent_value
-FROM CONTRACT_SERVICE_PARAM_HIST A
-inner join BUSINESS_SERVICES b on a.csph_buse_id = b.buse_id
-inner join BUSINESS_SERVICE_PARAM_VALUES bspv on a.csph_bspv_id = bspv.bspv_id
-WHERE b.buse_code LIKE 'EIH%'
-) t
-GROUP BY CSPH_CONT_ID,SERVICE_CODE, SERVICE_NAME , CSPH_VALID_FROM, CSPH_VALID_TO, csph_buse_id, consent_value
-limit 100
-INFO  : Semantic Analysis Completed (retrial = false)
-INFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:t.csph_cont_id, type:string, comment:null), FieldSchema(name:service_code, type:string, comment:null), FieldSchema(name:service_name, type:string, comment:null), FieldSchema(name:csph_valid_from, type:timestamp, comment:null), FieldSchema(name:csph_valid_to, type:timestamp, comment:null), FieldSchema(name:csph_buse_id, type:string, comment:null), FieldSchema(name:consent_value, type:string, comment:null)], properties:null)
-INFO  : Completed compiling command(queryId=hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce); Time taken: 7.435 seconds
-INFO  : Executing command(queryId=hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce): SELECT t.CSPH_CONT_ID,
-SERVICE_CODE, SERVICE_NAME, CSPH_VALID_FROM , CSPH_VALID_TO ,csph_buse_id, consent_value
-FROM (
-SELECT /*+ MAPJOIN(BUSINESS_SERVICES) */ CSPH_CONT_ID,  b.BUSE_CODE AS SERVICE_CODE,
-b.BUSE_NAME AS SERVICE_NAME,
-CSPH_VALID_FROM, CSPH_VALID_TO , csph_buse_id, case when b.buse_code = 'EIHVER' then CSPH_NUMERIC_VALUE else CSPH_BSPV_ID end as consent_value
-FROM CONTRACT_SERVICE_PARAM_HIST A
-inner join BUSINESS_SERVICES b on a.csph_buse_id = b.buse_id
-inner join BUSINESS_SERVICE_PARAM_VALUES bspv on a.csph_bspv_id = bspv.bspv_id
-WHERE b.buse_code LIKE 'EIH%'
-) t
-GROUP BY CSPH_CONT_ID,SERVICE_CODE, SERVICE_NAME , CSPH_VALID_FROM, CSPH_VALID_TO, csph_buse_id, consent_value
-limit 100
-INFO  : Query ID = hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce
-INFO  : Total jobs = 1
-INFO  : Launching Job 1 out of 1
-INFO  : Starting task [Stage-1:MAPRED] in serial mode
-INFO  : Subscribed to counters: [] for queryId: hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce
-INFO  : Tez session hasn't been created yet. Opening session
-INFO  : Dag name: SELECT t.CSPH_CONT_ID,
-SERVICE_CODE, S...100 (Stage-1)
-INFO  : Setting tez.task.scale.memory.reserve-fraction to 0.30000001192092896
-INFO  : Status: Running (Executing on YARN cluster with App id application_1581600148395_5313)
-INFO  : Status: DAG finished successfully in 80.54 seconds
-INFO  : 
+dfsskjnjl;l'u';lk';lkuk';kl
+gf;l'fj'ml;mkln;b08a
+bnlbnm'l;bnm';lljkdfjkl
 INFO  : Query Execution Summary
 INFO  : ----------------------------------------------------------------------------------------------
 INFO  : OPERATION                            DURATION
@@ -86,9 +10,14 @@ INFO  : Prepare Plan                            8.69s
 INFO  : Get Query Coordinator (AM)              0.00s
 INFO  : Submit Plan                             0.48s
 INFO  : Start DAG                               1.45s
-INFO  : Run DAG                                80.54s
+INFO  : Run DAG                                80.54sfdsafda
+INFO  : Operation One                          10.23
+INFO  : Operation Two                          fffasd80.54
+INFO  : Operation Three                        24.24s
+
 INFO  : ----------------------------------------------------------------------------------------------
 INFO  : 
+';';';lj;'ljkll''
 INFO  : Task Execution Summary
 INFO  : ----------------------------------------------------------------------------------------------
 INFO  :   VERTICES      DURATION(ms)   CPU_TIME(ms)    GC_TIME(ms)   INPUT_RECORDS   OUTPUT_RECORDS
@@ -97,8 +26,14 @@ INFO  :      Map 1          65013.00        516,890          7,624      13,119,1
 INFO  :      Map 3           6061.00         66,320          1,237           2,058               31
 INFO  :      Map 4           7088.00         50,530          1,117             431              431
 INFO  :  Reducer 2          40112.00        110,070          1,460           1,200                0
+INFO  :  WRONG 10       11123/23   40112.00        110,070          1,460           1,200                0
 INFO  : ----------------------------------------------------------------------------------------------
 INFO  : 
+sdfas
+sdfa
+fgdfhgf
+kl;o'ilioi'
+hgljjl;
 INFO  : org.apache.tez.common.counters.DAGCounter:
 INFO  :    NUM_SUCCEEDED_TASKS: 58
 INFO  :    TOTAL_LAUNCHED_TASKS: 58
@@ -111,7 +46,7 @@ INFO  :    FILE_BYTES_READ: 954341
 INFO  :    FILE_BYTES_WRITTEN: 207491
 INFO  :    HDFS_BYTES_READ: 225077992
 INFO  :    HDFS_BYTES_WRITTEN: 120034
-INFO  :    HDFS_READ_OPS: 44090
+INFO  :    HDFS_READ_OPS: 44090  aaaafffsd ddd
 INFO  :    HDFS_WRITE_OPS: 52
 INFO  :    HDFS_OP_CREATE: 26
 INFO  :    HDFS_OP_GET_FILE_STATUS: 78
@@ -119,190 +54,16 @@ INFO  :    HDFS_OP_OPEN: 44012
 INFO  :    HDFS_OP_RENAME: 26
 INFO  : org.apache.tez.common.counters.TaskCounter:
 INFO  :    REDUCE_INPUT_GROUPS: 1200
-INFO  :    REDUCE_INPUT_RECORDS: 1200
-INFO  :    COMBINE_INPUT_RECORDS: 0
-INFO  :    SPILLED_RECORDS: 2400
-INFO  :    NUM_SHUFFLED_INPUTS: 1138
-INFO  :    NUM_SKIPPED_INPUTS: 1722
-INFO  :    NUM_FAILED_SHUFFLE_INPUTS: 0
-INFO  :    MERGED_MAP_OUTPUTS: 956
-INFO  :    GC_TIME_MILLIS: 11438
-INFO  :    TASK_DURATION_MILLIS: 1322525
-INFO  :    CPU_MILLISECONDS: 743810
-INFO  :    PHYSICAL_MEMORY_BYTES: 58141442048
-INFO  :    VIRTUAL_MEMORY_BYTES: 265560293376
-INFO  :    COMMITTED_HEAP_BYTES: 58141442048
-INFO  :    INPUT_RECORDS_PROCESSED: 36568
-INFO  :    INPUT_SPLIT_LENGTH_BYTES: 174837441
-INFO  :    OUTPUT_RECORDS: 1662
-INFO  :    OUTPUT_LARGE_RECORDS: 0
-INFO  :    OUTPUT_BYTES: 94517
-INFO  :    OUTPUT_BYTES_WITH_OVERHEAD: 103661
-INFO  :    OUTPUT_BYTES_PHYSICAL: 106380
-INFO  :    ADDITIONAL_SPILLS_BYTES_WRITTEN: 36363
-INFO  :    ADDITIONAL_SPILLS_BYTES_READ: 45174
-INFO  :    ADDITIONAL_SPILL_COUNT: 0
-INFO  :    SHUFFLE_CHUNK_COUNT: 13
-INFO  :    SHUFFLE_BYTES: 144084
-INFO  :    SHUFFLE_BYTES_DECOMPRESSED: 154553
-INFO  :    SHUFFLE_BYTES_TO_MEM: 131329
-INFO  :    SHUFFLE_BYTES_TO_DISK: 0
-INFO  :    SHUFFLE_BYTES_DISK_DIRECT: 12755
-INFO  :    NUM_MEM_TO_DISK_MERGES: 0
-INFO  :    NUM_DISK_TO_DISK_MERGES: 0
-INFO  :    SHUFFLE_PHASE_TIME: 962380
-INFO  :    MERGE_PHASE_TIME: 960357
-INFO  :    FIRST_EVENT_RECEIVED: 2262
-INFO  :    LAST_EVENT_RECEIVED: 960850
-INFO  : HIVE:
-INFO  :    CREATED_FILES: 26
-INFO  :    DESERIALIZE_ERRORS: 0
-INFO  :    RECORDS_IN_Map_1: 13118727
-INFO  :    RECORDS_IN_Map_3: 2058
-INFO  :    RECORDS_IN_Map_4: 431
-INFO  :    RECORDS_OUT_0: 1200
-INFO  :    RECORDS_OUT_INTERMEDIATE_Map_1: 1200
-INFO  :    RECORDS_OUT_INTERMEDIATE_Map_3: 31
-INFO  :    RECORDS_OUT_INTERMEDIATE_Map_4: 431
-INFO  :    RECORDS_OUT_INTERMEDIATE_Reducer_2: 0
-INFO  :    RECORDS_OUT_OPERATOR_FIL_55: 31
-INFO  :    RECORDS_OUT_OPERATOR_FIL_58: 431
-INFO  :    RECORDS_OUT_OPERATOR_FIL_61: 12795044
-INFO  :    RECORDS_OUT_OPERATOR_FS_70: 1200
-INFO  :    RECORDS_OUT_OPERATOR_GBY_66: 3572555
-INFO  :    RECORDS_OUT_OPERATOR_GBY_68: 1200
-INFO  :    RECORDS_OUT_OPERATOR_LIM_69: 1200
-INFO  :    RECORDS_OUT_OPERATOR_MAPJOIN_63: 3572625
-INFO  :    RECORDS_OUT_OPERATOR_MAPJOIN_64: 3572625
-INFO  :    RECORDS_OUT_OPERATOR_MAP_0: 0
-INFO  :    RECORDS_OUT_OPERATOR_RS_57: 31
-INFO  :    RECORDS_OUT_OPERATOR_RS_60: 431
-INFO  :    RECORDS_OUT_OPERATOR_RS_67: 1200
-INFO  :    RECORDS_OUT_OPERATOR_SEL_56: 31
-INFO  :    RECORDS_OUT_OPERATOR_SEL_59: 431
-INFO  :    RECORDS_OUT_OPERATOR_SEL_62: 12795044
-INFO  :    RECORDS_OUT_OPERATOR_SEL_65: 3572625
-INFO  :    RECORDS_OUT_OPERATOR_TS_0: 13118727
-INFO  :    RECORDS_OUT_OPERATOR_TS_3: 2058
-INFO  :    RECORDS_OUT_OPERATOR_TS_6: 431
-INFO  : Shuffle Errors:
-INFO  :    BAD_ID: 0
-INFO  :    CONNECTION: 0
-INFO  :    IO_ERROR: 0
-INFO  :    WRONG_LENGTH: 0
-INFO  :    WRONG_MAP: 0
-INFO  :    WRONG_REDUCE: 0
-INFO  : Shuffle Errors_Reducer_2_INPUT_Map_1:
-INFO  :    BAD_ID: 0
-INFO  :    CONNECTION: 0
-INFO  :    IO_ERROR: 0
-INFO  :    WRONG_LENGTH: 0
-INFO  :    WRONG_MAP: 0
-INFO  :    WRONG_REDUCE: 0
-INFO  : TaskCounter_Map_1_INPUT_Map_3:
-INFO  :    FIRST_EVENT_RECEIVED: 661
-INFO  :    INPUT_RECORDS_PROCESSED: 403
-INFO  :    LAST_EVENT_RECEIVED: 1015
-INFO  :    NUM_FAILED_SHUFFLE_INPUTS: 0
-INFO  :    NUM_SHUFFLED_INPUTS: 65
-INFO  :    SHUFFLE_BYTES: 14417
-INFO  :    SHUFFLE_BYTES_DECOMPRESSED: 16302
-INFO  :    SHUFFLE_BYTES_DISK_DIRECT: 1321
-INFO  :    SHUFFLE_BYTES_TO_DISK: 0
-INFO  :    SHUFFLE_BYTES_TO_MEM: 13096
-INFO  :    SHUFFLE_PHASE_TIME: 1521
-INFO  : TaskCounter_Map_1_INPUT_Map_4:
-INFO  :    FIRST_EVENT_RECEIVED: 566
-INFO  :    INPUT_RECORDS_PROCESSED: 5603
-INFO  :    LAST_EVENT_RECEIVED: 1006
-INFO  :    NUM_FAILED_SHUFFLE_INPUTS: 0
-INFO  :    NUM_SHUFFLED_INPUTS: 117
-INFO  :    SHUFFLE_BYTES: 26793
-INFO  :    SHUFFLE_BYTES_DECOMPRESSED: 38831
-INFO  :    SHUFFLE_BYTES_DISK_DIRECT: 2623
-INFO  :    SHUFFLE_BYTES_TO_DISK: 0
-INFO  :    SHUFFLE_BYTES_TO_MEM: 24170
-INFO  :    SHUFFLE_PHASE_TIME: 1570
-INFO  : TaskCounter_Map_1_INPUT_a:
-INFO  :    INPUT_RECORDS_PROCESSED: 29944
-INFO  :    INPUT_SPLIT_LENGTH_BYTES: 174149910
-INFO  : TaskCounter_Map_1_OUTPUT_Reducer_2:
-INFO  :    ADDITIONAL_SPILLS_BYTES_READ: 0
-INFO  :    ADDITIONAL_SPILLS_BYTES_WRITTEN: 0
-INFO  :    ADDITIONAL_SPILL_COUNT: 0
-INFO  :    OUTPUT_BYTES: 91284
-INFO  :    OUTPUT_BYTES_PHYSICAL: 102874
-INFO  :    OUTPUT_BYTES_WITH_OVERHEAD: 99420
-INFO  :    OUTPUT_LARGE_RECORDS: 0
-INFO  :    OUTPUT_RECORDS: 1200
-INFO  :    SHUFFLE_CHUNK_COUNT: 13
-INFO  :    SPILLED_RECORDS: 1200
-INFO  : TaskCounter_Map_3_INPUT_b:
-INFO  :    INPUT_RECORDS_PROCESSED: 480
-INFO  :    INPUT_SPLIT_LENGTH_BYTES: 624686
-INFO  : TaskCounter_Map_3_OUTPUT_Map_1:
-INFO  :    ADDITIONAL_SPILLS_BYTES_READ: 0
-INFO  :    ADDITIONAL_SPILLS_BYTES_WRITTEN: 0
-INFO  :    ADDITIONAL_SPILL_COUNT: 0
-INFO  :    OUTPUT_BYTES: 1162
-INFO  :    OUTPUT_BYTES_PHYSICAL: 1229
-INFO  :    OUTPUT_BYTES_WITH_OVERHEAD: 1254
-INFO  :    OUTPUT_LARGE_RECORDS: 0
-INFO  :    OUTPUT_RECORDS: 31
-INFO  :    SPILLED_RECORDS: 0
-INFO  : TaskCounter_Map_4_INPUT_bspv:
-INFO  :    INPUT_RECORDS_PROCESSED: 138
-INFO  :    INPUT_SPLIT_LENGTH_BYTES: 62845
-INFO  : TaskCounter_Map_4_OUTPUT_Map_1:
-INFO  :    ADDITIONAL_SPILLS_BYTES_READ: 0
-INFO  :    ADDITIONAL_SPILLS_BYTES_WRITTEN: 0
-INFO  :    ADDITIONAL_SPILL_COUNT: 0
-INFO  :    OUTPUT_BYTES: 2071
-INFO  :    OUTPUT_BYTES_PHYSICAL: 2277
-INFO  :    OUTPUT_BYTES_WITH_OVERHEAD: 2987
-INFO  :    OUTPUT_LARGE_RECORDS: 0
-INFO  :    OUTPUT_RECORDS: 431
-INFO  :    SPILLED_RECORDS: 0
-INFO  : TaskCounter_Reducer_2_INPUT_Map_1:
-INFO  :    ADDITIONAL_SPILLS_BYTES_READ: 45174
-INFO  :    ADDITIONAL_SPILLS_BYTES_WRITTEN: 36363
-INFO  :    COMBINE_INPUT_RECORDS: 0
-INFO  :    FIRST_EVENT_RECEIVED: 1035
-INFO  :    LAST_EVENT_RECEIVED: 958829
-INFO  :    MERGED_MAP_OUTPUTS: 956
-INFO  :    MERGE_PHASE_TIME: 960357
-INFO  :    NUM_DISK_TO_DISK_MERGES: 0
-INFO  :    NUM_FAILED_SHUFFLE_INPUTS: 0
-INFO  :    NUM_MEM_TO_DISK_MERGES: 0
-INFO  :    NUM_SHUFFLED_INPUTS: 956
-INFO  :    NUM_SKIPPED_INPUTS: 1722
-INFO  :    REDUCE_INPUT_GROUPS: 1200
-INFO  :    REDUCE_INPUT_RECORDS: 1200
-INFO  :    SHUFFLE_BYTES: 102874
-INFO  :    SHUFFLE_BYTES_DECOMPRESSED: 99420
-INFO  :    SHUFFLE_BYTES_DISK_DIRECT: 8811
-INFO  :    SHUFFLE_BYTES_TO_DISK: 0
-INFO  :    SHUFFLE_BYTES_TO_MEM: 94063
-INFO  :    SHUFFLE_PHASE_TIME: 959289
-INFO  :    SPILLED_RECORDS: 1200
-INFO  : TaskCounter_Reducer_2_OUTPUT_out_Reducer_2:
-INFO  :    OUTPUT_RECORDS: 0
-INFO  : org.apache.hadoop.hive.ql.exec.tez.HiveInputCounters:
-INFO  :    GROUPED_INPUT_SPLITS_Map_1: 13
-INFO  :    GROUPED_INPUT_SPLITS_Map_3: 10
-INFO  :    GROUPED_INPUT_SPLITS_Map_4: 9
-INFO  :    INPUT_DIRECTORIES_Map_1: 5380
-INFO  :    INPUT_DIRECTORIES_Map_3: 312
-INFO  :    INPUT_DIRECTORIES_Map_4: 82
-INFO  :    INPUT_FILES_Map_1: 21388
-INFO  :    INPUT_FILES_Map_3: 480
-INFO  :    INPUT_FILES_Map_4: 138
-INFO  :    RAW_INPUT_SPLITS_Map_1: 21388
-INFO  :    RAW_INPUT_SPLITS_Map_3: 480
-INFO  :    RAW_INPUT_SPLITS_Map_4: 138
+INFO  :    dsfdsf sdfdsfgdfgs gfdfg sdfgsdg 
+alldsasdkdslakjasdjkl
 INFO  : Completed executing command(queryId=hive_20200501144051_33d3f99c-b08a-45f2-a2af-4710568dacce); Time taken: 90.239 seconds
 INFO  : OK
 100 rows selected (98.773 seconds)
 0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> 
 0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> 
 0: jdbc:hive2://bispocm1.misc.t-mobile.pl:218> Closing: 0: jdbc:hive2://bispocm1.misc.t-mobile.pl:2181,bispocm2.misc.t-mobile.pl:2181,bispocm3.misc.t-mobile.pl:2181/default;principal=hive/_HOST@CORPO.T-MOBILE.PL;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2
+INFO  : Task Execution Summary
+INFO  : ----------------------------------------------------------------------------------------------
+INFO  :   VERTICES      DURATION(ms)   CPU_TIME(ms)    GC_TIME(ms)   INPUT_RECORDS   OUTPUT_RECORDS
+INFO  : ----------------------------------------------------------------------------------------------
+Gibberish...

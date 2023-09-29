@@ -3,7 +3,8 @@ from logparser.query_summary import QuerySummary
 
 def test_parse_correct_lines():
     # This test will check if the parse method can correctly parse valid log lines for query summary
-    # Note that these lines are structurally correct while also all the 6 critical operations are there, this is why expected error should be empty
+    # Note that these lines are structurally correct while also all the 6 critical operations are present
+    # This is why expected error should be empty
     sample_lines = [
         (0, "INFO  : Compile Query                           7.43s"),
         (1, "INFO  : Prepare Plan                            8.69s"),

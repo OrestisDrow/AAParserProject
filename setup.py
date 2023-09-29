@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
     'console_scripts': [
-        'run-logparser=logparser.run_parser:main',
+        'run-logparser=logparser.run_parser:main', # Give the option to do run-logparser from bash
         ],
     },
 
@@ -19,5 +19,5 @@ setup(
     description="A specialized log parser for extracting specific metrics.",
     license="MIT",
     keywords="log parser",
-    url="https://github.com/OrestisDrow/AAParserProject",  # Use your GitHub repo URL
+    url="https://github.com/OrestisDrow/AAParserProject",
 )

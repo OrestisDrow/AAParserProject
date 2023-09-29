@@ -36,7 +36,7 @@ class QuerySummary:
                 errors.append(f"Err parsing idx: {idx}, line: '{line.rstrip()}'. Line has corrupt structure... skipped")
                 continue
 
-        # Check if any critical operation is missing
+        # If any critical operation is missing, append the err
         for op in critical_operations:
             if op not in encountered_operations:
                 errors.append(f"Critical operation: '{op}' missing in the log data.")

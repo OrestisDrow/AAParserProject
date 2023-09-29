@@ -32,7 +32,7 @@ class LogFileParser:
             else:
                 warnings.warn(f"Header: {line} | found multiple times in the log file... ignoring all but the first instance ...", stacklevel=2)
 
-        # Throw warning and ignore missing headers, if no headers are found, throw error
+        # Throw warning and ignore missing headers, if no headers are found at all, throw error
         not_found_headers = [header for header, idx in self._header_idxs.items() if idx is None]
 
         if len(not_found_headers) == len(self._header_idxs):
@@ -68,7 +68,6 @@ class LogFileParser:
         task_execution_lines = extract_lines_until_identifier(task_execution_start+3, task_execution_identifier) if task_execution_start is not None else None
         detailed_metrics_lines = extract_lines_until_identifier(detailed_metrics_start-1, detailed_metrics_identifier) if detailed_metrics_start is not None else None
         
-        #pprint(detailed_metrics_lines)
         return query_execution_lines, task_execution_lines, detailed_metrics_lines 
     
     def parse(self):

@@ -1,6 +1,5 @@
 import pytest
 from logparser.log_file_parser import LogFileParser
-from pprint import pprint
 
 # Paths to your test logs.
 PATH_TO_VALID_LOG = "tests/test_data/test_log_valid.txt"
@@ -49,7 +48,7 @@ def test_parse_with_valid_log(setup_log_file_parser):
 
 def test_parse_with_semivalid_log(setup_log_file_parser):
 
-    # Case where some headers are missing but at least 1 header exists, some lines might have errors -> Semi Valid Log
+    # Case where some headers are missing but at least 1 header exists, some lines can have errors -> Semi Valid Log
     parser, log_file_path = setup_log_file_parser
     
     if log_file_path != PATH_TO_SEMIVALID_LOG:
@@ -63,7 +62,6 @@ def test_parse_with_semivalid_log(setup_log_file_parser):
     task_summary, task_errors = parser.task_summary, parser.task_errors
     detailed_summary, detailed_errors = parser.detailed_summary, parser.detailed_errors
 
-    # Note: your assert structure had issues in the original code, I've broken them down for clarity
     assert query_summary == {'Compile Query': '7.43',
                             'Get Query Coordinator (AM)': '0.00',
                             'Prepare Plan': '8.69',
@@ -76,8 +74,7 @@ def test_parse_with_semivalid_log(setup_log_file_parser):
 
 
 def test_parse_with_invalid_log(setup_log_file_parser):
-
-    # Case where there are no headers in the logfile
+    # An invalid log would be the case where there are no headers in the logfile found
     parser, log_file_path = setup_log_file_parser
     
     if log_file_path != PATH_TO_INVALID_LOG:
@@ -86,7 +83,7 @@ def test_parse_with_invalid_log(setup_log_file_parser):
     with pytest.raises(ValueError, match="No headers found in the log file."):
         parser.parse()
     
-    # If you still want to check the other values after the expected error:
+    # The other values after the expected error should be all None in this case:
     query_summary, query_errors = parser.query_summary, parser.query_errors
     task_summary, task_errors = parser.task_summary, parser.task_errors
     detailed_summary, detailed_errors = parser.detailed_summary, parser.detailed_errors
